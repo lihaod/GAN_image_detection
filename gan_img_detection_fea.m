@@ -5,16 +5,18 @@ function F = gan_img_detection_fea(IMG)
 % - IMG: An image array or a path to the image file.
 %
 % Output:
-% - F: The 588-D feature for GAN generated image detection.
+% - F: The 300-D feature for GAN generated image detection.
 %
 % The algorithm is proposed in the following paper:
-% @article{DBLP:journals/corr/abs-1808-07276,
-%   author    = {Haodong Li and Bin Li and Shunquan Tan and Jiwu Huang},
-%   title     = {Detection of Deep Network Generated Images Using 
-%                Disparities in Color Components},
-%   journal   = {CoRR},
-%   volume    = {abs/1808.07276},
-%   year      = {2018}
+% @article{li2020identification,
+%   title={Identification of Deep Network Generated Images Using Disparities in Color Components},
+%   author={Li, Haodong and Li, Bin and Tan, Shunquan and Huang, Jiwu},
+%   journal={Signal Processing},
+%   volume = {174},
+%   pages={107616},
+%   year={2020},
+%   issn = {0165-1684},
+%   doi = {https://doi.org/10.1016/j.sigpro.2020.107616},
 % }
 
 if ischar(IMG)
@@ -23,10 +25,9 @@ end
 
 HSV = double(im2uint8(rgb2hsv(IMG)));
 YCC = double(rgb2ycbcr(IMG));
-IMG = double(IMG);
+% IMG = double(IMG);
 
-F = cat(2,...
-    matrix_cooc_3D(IMG,true),...
+F = cat(2,...   %     matrix_cooc_3D(IMG,true),...
     matrix_cooc_2D(HSV(:,:,1),true),...
     matrix_cooc_2D(HSV(:,:,2),true),...
     matrix_cooc_2D(YCC(:,:,2),true),...
